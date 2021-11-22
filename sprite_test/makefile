@@ -70,7 +70,7 @@ $(target) : $(objects)
 	$(ECHO) _$*: .incbin "$*.spr" >> $*.s
 	$(AS) -o $@ $(AFLAGS) $*.s
 	$(RM) $*.s
-	$(RM) $*.pal
+#	$(RM) $*.pal
 	$(RM) $*.spr
 
 lynx-stdjoy.o:

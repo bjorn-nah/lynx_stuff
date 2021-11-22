@@ -5,13 +5,27 @@
 #include <conio.h>
 
 extern unsigned char skull[];
+
+/*
 SCB_RENONE skullsprite =  {
   BPP_4 | TYPE_NORMAL, 
   REUSEPAL, 0x01,
   0x0000,
   &skull,
   20, 50
-};
+};*/
+
+SCB_REHV_PAL  skullsprite =  {
+  BPP_4 | TYPE_NORMAL, 
+  REHV,
+  0x01,
+  0x0000,
+  &skull,
+  20, 50,
+  0x0500, 0x0500,
+  // palette values can be found in .pal file provided by sprpck
+  {0x01,0x23,0x45,0x67,0x89,0xAB,0xCD,0xEF}
+  };
 
 void initialize()
 {
