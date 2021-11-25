@@ -15,17 +15,29 @@ SCB_RENONE skullsprite =  {
   20, 50
 };*/
 
-SCB_REHV_PAL  skullsprite =  {
+SCB_REHV_PAL skullsprite2 = {
   BPP_4 | TYPE_NORMAL, 
   REHV,
   0x01,
   0x0000,
   skull,
+  20, 20,
+  0x0200, 0x0200,
+  // palette values can be found in .pal file provided by sprpck
+  {0x01,0x23,0x45,0x67,0x89,0xAB,0xCD,0xEF}
+};
+
+SCB_REHV_PAL skullsprite = {
+  BPP_4 | TYPE_NORMAL, 
+  REHV,
+  0x01,
+  (char *)&skullsprite2,
+  skull,
   20, 50,
   0x0100, 0x0100,
   // palette values can be found in .pal file provided by sprpck
   {0x01,0x23,0x45,0x67,0x89,0xAB,0xCD,0xEF}
-  };
+};
 
 int dirrection, grow;
 
@@ -59,8 +71,10 @@ void show_screen()
 	
 	if(dirrection){
 		skullsprite.hpos++;
+		skullsprite2.hpos++;
 	}else{
 		skullsprite.hpos--;
+		skullsprite2.hpos--;
 	}
 	if(skullsprite.hpos==0){
 		dirrection=1;
