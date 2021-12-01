@@ -40,12 +40,12 @@ AFLAGS=-I $(CA65_INC) -t $(SYS)
 CFLAGS=-I $(CC65_INC) -t $(SYS) --add-source -O -Or -Cl -Os
 
 target = chipper
-objects = main.o soundbs.o track2.o
+objects = main.o soundbs.o aurora2.o
 
 $(target) : $(objects)
-#	$(CL) -t $(SYS) --config lynx-chipper.cfg -o $@.lnx -m chipper.map $(objects) lynx.lib
-#	$(CL) -t $(SYS) --config lynx-bll.cfg -o $@.o -m chipper.map $(objects) lynx.lib 
 	$(CL) -t $(SYS) -o $@.lnx -m chipper.map $(objects) lynx.lib
+	$(CL) -t $(SYS) --config lynx-bll.cfg -o $@.o -m chipper.map $(objects) lynx.lib 
+	
 
 .SUFFIXES: .o .c .s .asm .bmp
 
@@ -96,3 +96,5 @@ clean :
 	$(RM) *.joy
 #	$(RM) *.s
 	$(RM) *.pal
+	$(RM) *.lnx
+	$(RM) *.o
