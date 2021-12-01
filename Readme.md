@@ -5,6 +5,7 @@ My lynx firts steps and attempts
 
 Current stuff :
 * Inputs : simple input tester
+* Music - chipper : simple test with chipper player
 * Sprite test : sprite definition and updates
 
 Todo :
