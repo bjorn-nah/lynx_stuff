@@ -5,6 +5,9 @@
 #include <conio.h>
 #include <joystick.h> 
 
+char keyboard;
+unsigned int tics;
+
 void initialize()
 {
 	tgi_install(&tgi_static_stddrv);
@@ -24,6 +27,7 @@ void initialize()
 
 void show_screen()
 {
+	char text[20];
 	unsigned char joy;
 	
 	// Clear current screen
@@ -37,33 +41,37 @@ void show_screen()
 		tgi_outtextxy(16, 32, "UP");
 	}
 	if (JOY_DOWN(joy)) {
-		tgi_outtextxy(16, 48, "DOWN");
+		tgi_outtextxy(16, 40, "DOWN");
 	}
 	if (JOY_LEFT(joy)) {
-		tgi_outtextxy(16, 64, "LEFT");
+		tgi_outtextxy(16, 48, "LEFT");
 	}
 	if (JOY_RIGHT(joy)) {
-		tgi_outtextxy(16, 80, "RIGHT");
+		tgi_outtextxy(16, 56, "RIGHT");
 	}
 	if (JOY_BTN_1(joy)) {
 		tgi_outtextxy(64, 32, "A");
 	}
 	if (JOY_BTN_2(joy)) {
-		tgi_outtextxy(64, 48, "B");
+		tgi_outtextxy(64, 40, "B");
 	}
-
-	tgi_updatedisplay();
-}
-
-void main(void)
-{
-	initialize();
-
-	while (1)
-	{
-		if (kbhit())
-		{
-			switch (cgetc())
+	
+	tgi_outtextxy(16, 72, "buttons");
+	itoa(joy, text, 10);
+	tgi_outtextxy(16, 80, text);
+	tgi_outtextxy(80, 72, "keyboard");
+	itoa(keyboard, text, 10);
+	tgi_outtextxy(80, 80, text);
+	
+	//reset keyboard
+	if(tics > 0){
+		tics--;
+	}else{
+		keyboard = 0x00;
+	}
+	
+	/*
+	switch (cgetc())
 			{
 			case 'F':
 				tgi_flip();
@@ -72,6 +80,22 @@ void main(void)
 			default:
 				break;
 			}
+			*/
+
+	tgi_updatedisplay();
+}
+
+void main(void)
+{
+
+	initialize();
+
+	while (1)
+	{
+		if (kbhit())
+		{
+			keyboard = cgetc();
+			tics = 60;
 		}
 
 		if (!tgi_busy())
